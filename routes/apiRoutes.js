@@ -1,19 +1,14 @@
-let db = require("../db/db.json");
-let path = require("path");
+const path = require("path");
 const fs = require("fs");
 
-// ===============================================================================
-// ROUTING
-// ===============================================================================
-
 module.exports = function (app) {
-  // API GET Requests
   app.get("/api/notes", (req, res) => {
     fs.readFile("./db/db.json", (err, notesData) => {
       if (err) throw err;
       res.json(JSON.parse(notesData));
     });
   });
+
   app.post("/api/notes", (req, res) => {
     fs.readFile("./db/db.json", (err, data) => {
       if (err) throw err;
@@ -25,7 +20,7 @@ module.exports = function (app) {
       }
       fs.writeFile("./db/db.json", JSON.stringify(notesData), (err) => {
         if (err) throw err;
-        res.send(db);
+        res.send(notesData);
       });
     });
   });
